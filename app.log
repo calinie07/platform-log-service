@@ -1,0 +1,5 @@
+INFO Application started
+INFO User login succeeded
+ERROR Failed to connect to database
+INFO Retrying request
+ERROR Timeout while calling external API
