@@ -2,17 +2,27 @@ pipeline {
   agent any
 
   stages {
-    stage('Checkout confirmation') {
+    stage('Checkout') {
       steps {
-        echo 'Jenkins started from a GitHub-triggered pipeline.'
-        sh 'pwd'
-        sh 'ls -la'
+        echo 'Checking out code...'
       }
     }
 
-    stage('Python check') {
+    stage('Build Docker Image') {
       steps {
-        sh 'python3 --version || python --version || true'
+        sh 'docker build -t platform-log-service .'
+      }
+    }
+
+    stage('Stop Old Container') {
+      steps {
+        sh 'docker rm -f platform-app || true'
+      }
+    }
+
+    stage('Run New Container') {
+      steps {
+        sh 'docker run -d -p 5000:5000 --name platform-app platform-log-service'
       }
     }
   }
