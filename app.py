@@ -10,7 +10,7 @@ LOG_FILE = os.getenv("LOG_FILE", "app.log")
 def home():
     return jsonify({
         "service": "platform-log-service",
-        "status": "running"
+        "status": "running-ok"
     })
 
 
