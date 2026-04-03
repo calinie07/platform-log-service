@@ -13,7 +13,13 @@ pipeline {
         sh 'docker build -t platform-log-service .'
       }
     }
-
+    stage('Run Tests') {
+      steps {
+        sh '''
+          docker run --rm platform-log-service python3 -m pytest -v
+        '''
+      }
+    }
     stage('Stop Old Container') {
       steps {
         sh 'docker rm -f platform-app || true'
